@@ -24,6 +24,7 @@ create table if not exists public.posts (
   caption text not null default '',
   description text not null default '',
   topic text not null default '',
+  image_url text not null default '',
   suggested_comment text not null default '',
   final_comment text not null default '',
   comment_source text not null default '',
