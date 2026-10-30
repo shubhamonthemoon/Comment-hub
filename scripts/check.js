@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const match = html.match(/<script>([\\s\\S]*?)<\\/script>/);
+const match = html.match(/<script>([\s\S]*?)<\/script>/);
 if (!match) throw new Error("Inline application script was not found");
 new vm.Script(match[1], { filename: "index.html:inline-script" });
 for (const file of ["api/config.js", "api/health.js", "api/generate-comment.js"]) {
