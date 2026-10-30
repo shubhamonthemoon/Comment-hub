@@ -31,7 +31,7 @@ The AI endpoint currently supports caption, user-supplied transcript/description
 4. Never use the Supabase service-role key in the browser.
 5. Redeploy after setting variables.
 
-The schema uses per-user Row Level Security. Database-backed sign-in/sync UI is a separate integration step; until it is completed, the current app remains localStorage-based and its export/restore backup should be used.
+The app includes email sign-up/sign-in and a manual cloud-sync control. After adding the two public Supabase values and running the SQL schema, open Settings → Cloud account & sync, create an account or sign in, then export a backup and press Sync. Local records are uploaded first and the signed-in account's records are then downloaded. The anon key is safe to expose only because every table has Row Level Security; never use a service-role key in the browser.
 
 ## 4. Meta / Facebook access
 
