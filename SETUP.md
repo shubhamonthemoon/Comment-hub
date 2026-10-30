@@ -4,10 +4,9 @@ This repository is the existing project, extended in a separate feature branch. 
 
 ## 1. Deploy the code
 
-1. Open the pull request linked from the project handover.
-2. Review and merge it into `main` when ready.
-3. In Vercel, confirm the project is connected to this GitHub repository and deploys from `main`.
-4. The `api/` folder is deployed as Vercel serverless functions.
+1. The foundation update has already been merged into `main`.
+2. In Vercel, confirm the project is connected to this GitHub repository and deploys from `main`.
+3. The `api/` folder is deployed as Vercel serverless functions.
 
 ## 2. Enable real AI comments
 
