@@ -1,38 +1,33 @@
 # Creator Support AI — Comment Hub
 
-A mobile-first, local-first workspace for organising creator support and reviewing comment drafts.
+A mobile-first workspace for organising creator support and reviewing comment drafts.
 
 ## Current build
 
 - Creator records: add, edit, search, pause/reactivate and remove saved Facebook creator links.
 - Creator feed: view posts saved for an individual creator.
-- Manual post intake: save a public Facebook post/Reel URL, caption, transcript/video description and topic.
+- Manual post intake: save a public Facebook post/Reel URL, caption, transcript/video description, topic and optional public image URL.
+- AI endpoint: server-side OpenAI Responses API integration. The OpenAI key remains in Vercel environment variables; the browser never receives it. A local starter fallback is clearly labelled when AI is not configured or unavailable.
 - Comment review: edit and save a draft, copy it and open the original post, skip or dismiss it.
 - Honest publishing state: copying a comment is recorded as **Comment copied**, not published. The user can explicitly confirm after manually publishing.
 - History: search and filter by creator and status.
 - Dashboard: counts are calculated from actual local records.
 - Backup/restore: export and import a JSON backup.
 - Preferences: language, tone, length and cultural-context instructions.
-- Backward compatibility: existing `csai_creators`, `csai_posts` and preference values in localStorage are retained and migrated in place.
+- Supabase foundation: email sign-up/sign-in, per-user RLS schema and manual cross-device sync.
+- Backward compatibility: existing `csai_creators`, `csai_posts` and preference values in localStorage are retained.
 
-## Run it
+## Deploy and configure
 
-Open `index.html` in a modern browser or deploy the repository to a static host such as Vercel. No build step is required.
+See [SETUP.md](SETUP.md). Required environment variables are listed in `.env.example`.
 
-## Important limits — not connected yet
+## Important limits — still not connected/available
 
-This is still a browser-only prototype/foundation. It does **not** currently provide:
-- Real LLM-powered comment generation (the draft helper is a small local starter function).
-- Facebook/Meta API connection, automatic creator monitoring or automatic feed discovery.
-- Automatic downloading, viewing or transcription of Facebook Reels.
-- User accounts, cloud database, multi-device sync or scheduled jobs.
-- Direct comment publishing.
+- Real AI requires an OpenAI API key and a private AI access code configured in Vercel.
+- Cloud sync requires a Supabase project, the SQL schema to be applied, and Supabase URL + anon key configured in Vercel.
+- AI can analyse supplied text and an optional public HTTPS image URL. It does not automatically fetch Facebook content, download/watch Reels, or transcribe audio.
+- Facebook/Meta automatic discovery requires an approved Meta app, the correct Page permissions, owner-authorised Page access and webhook/token setup. Arbitrary personal-profile monitoring is not a general public API capability.
+- No scheduled monitoring or automatic comment publishing is implemented.
+- Manual Facebook workflow remains: copy the draft, open the original post, paste and publish on Facebook, then explicitly confirm in the app.
 
-Facebook interactions remain manual: copy the draft, open the original post, paste and publish on Facebook, then explicitly confirm in the app. Meta access depends on official API permissions, app review and the relevant account/page type. Do not collect Facebook passwords, session cookies or automate private browser sessions.
-
-## Next implementation stages
-
-1. Add hosted authentication and persistent database with per-user access controls and a safe local-data migration.
-2. Add a secure server-side AI endpoint; keep provider keys out of browser code.
-3. Add supported Meta Page integrations only after permissions and access are configured; keep a manual fallback for personal profiles or inaccessible content.
-4. Add scheduled discovery, operational monitoring, backups and deployment verification.
+Never collect Facebook passwords, session cookies or browser login tokens.
