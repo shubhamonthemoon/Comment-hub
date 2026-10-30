@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827">
+<title>Creator Support AI</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--line:#26364d;--text:#f4f7fb;--muted:#9eacc0;--accent:#8b9cff;--mint:#7ee0c1}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#101a2b,#0b1220 55%);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 15px;font-weight:700}
+.app{max-width:850px;margin:auto;padding:20px 15px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 20px}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,#8395ff,#75dfc3);display:grid;place-items:center;color:#101827;font-size:22px;font-weight:900}
+h1{font-size:20px;margin:0;letter-spacing:-.4px}.sub{color:var(--muted);font-size:12px}
+.pill{border:1px solid #35504e;background:#132b2a;color:var(--mint);padding:6px 10px;border-radius:30px;font-size:11px;font-weight:700}
+nav{display:flex;gap:8px;overflow:auto;padding:3px 0 14px}
+.tab{background:transparent;color:var(--muted);border:1px solid var(--line);white-space:nowrap}.tab.active{background:#263657;color:white;border-color:#5269a5}
+.panel{background:rgba(18,29,46,.96);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:13px;box-shadow:0 12px 35px #0002}
+h2{font-size:17px;margin:0 0 5px}.muted{color:var(--muted)}.small{font-size:12px}.row{display:flex;gap:9px;align-items:center}.between{justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:var(--panel2);padding:13px;border-radius:14px}.stat b{display:block;font-size:24px}
+label{display:block;color:#c6d1e0;font-size:12px;margin:12px 0 6px}
+input,textarea,select{width:100%;background:#0c1625;color:var(--text);border:1px solid #31435d;border-radius:11px;padding:12px;outline:none}
+textarea{min-height:78px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+.primary{background:linear-gradient(110deg,#8999ff,#79d9c1);color:#0b1522}.secondary{background:#263750;color:#e8effa;border:1px solid #3a506e}.ghost{background:transparent;color:#c7d3e5;border:1px solid var(--line)}.danger{background:#42252d;color:#ffc4c4}
+.full{width:100%;margin-top:12px}.creator,.post{border:1px solid var(--line);border-radius:14px;padding:13px;margin-top:10px;background:#101b2b}
+.tag{font-size:11px;padding:4px 8px;border-radius:20px;background:#263750;color:#c8d8f1}
+.empty{text-align:center;padding:25px 10px;color:var(--muted)}
+.comment{background:#0b1727;border:1px solid #344a67;border-radius:13px;padding:13px;margin-top:10px;white-space:pre-wrap}
+.notice{background:#302a1b;border:1px solid #62512b;color:#f4dca0;padding:11px;border-radius:12px;font-size:12px;margin-top:12px}
+.success{background:#132b2a;border:1px solid #315c54;color:#a5f0d8;padding:11px;border-radius:12px;font-size:12px;margin-top:12px}
+.hidden{display:none!important}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions button{flex:1}
+footer{text-align:center;color:#75869e;font-size:11px;padding:12px}
+@media(max-width:520px){.app{padding:14px 12px 35px}.grid{gap:8px}.panel{padding:14px}.actions button{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">✦</div><div><h1>Creator Support AI</h1><div class="sub">Thoughtful support, one creator at a time</div></div></div>
+ <span class="pill">WORKING PROTOTYPE</span>
+</header>
+<nav>
+ <button class="tab active" data-tab="dashboard">Dashboard</button>
+ <button class="tab" data-tab="creators">Creators</button>
+ <button class="tab" data-tab="addpost">Add Reel</button>
+ <button class="tab" data-tab="settings">AI personality</button>
+</nav>
+
+<section id="dashboard" class="view">
+ <div class="grid">
+  <div class="stat"><span class="muted small">Creators saved</span><b id="creatorCount">0</b></div>
+  <div class="stat"><span class="muted small">Posts awaiting comments</span><b id="postCount">0</b></div>
+ </div>
+ <div class="panel" style="margin-top:13px">
+  <div class="row between"><div><h2>Needs your attention</h2><div class="muted small">Review AI suggestions and send when ready</div></div><span class="tag">Approval required</span></div>
+  <div id="queue"></div>
+ </div>
+ <div class="panel">
+  <h2>Your AI understands Indian culture</h2>
+  <p class="muted small">Designed to recognise Indian festivals, traditions, regional celebrations, cultural references and Hindi/Hinglish speech when the connected AI service receives the Reel's video/audio.</p>
+  <div class="row" style="flex-wrap:wrap"><span class="tag">Diwali</span><span class="tag">Holi</span><span class="tag">Navratri</span><span class="tag">Durga Puja</span><span class="tag">Chhath Puja</span><span class="tag">Karwa Chauth</span><span class="tag">Eid</span><span class="tag">Christmas</span><span class="tag">Pongal</span><span class="tag">Onam</span><span class="tag">Baisakhi</span><span class="tag">Ganesh Chaturthi</span></div>
+  <div class="notice">Festival and regional knowledge should be checked against context. The AI must not assume every tradition is celebrated the same way across India.</div>
+ </div>
+</section>
+
+<section id="creators" class="view hidden">
+ <div class="panel">
+  <h2>Add a creator</h2><p class="muted small">Save a public Facebook profile or Page link. Monitoring availability depends on Meta's permissions and what the creator makes accessible.</p>
+  <label>Creator name / label</label><input id="creatorName" placeholder="e.g. Dance creator">
+  <label>Facebook profile or Page URL</label><input id="creatorUrl" placeholder="https://www.facebook.com/...">
+  <label>Account type</label><select id="creatorType"><option>Personal profile</option><option>Facebook Page</option></select>
+  <button class="primary full" id="addCreator">Save creator</button>
+ </div>
+ <div class="panel"><h2>Saved creators</h2><div id="creatorList" class="empty">No creators added yet.</div></div>
+</section>
+
+<section id="addpost" class="view hidden">
+ <div class="panel">
+  <h2>Add a new Reel or post</h2><p class="muted small">Use this when automatic discovery is unavailable. Paste the public post link and add its caption or a description/transcript so the AI can respond to the actual content.</p>
+  <label>Creator</label><select id="postCreator"></select>
+  <label>Facebook Reel / post URL</label><input id="postUrl" placeholder="https://www.facebook.com/...">
+  <label>Caption / what the creator wrote</label><textarea id="postCaption" placeholder="Paste the caption or post text here"></textarea>
+  <label>What happens in the video? (optional)</label><textarea id="postVisual" placeholder="Describe the Reel, or paste a Hindi/English transcript of what is said."></textarea>
+  <label>Festival / topic (optional)</label><input id="postTopic" placeholder="e.g. Chhath Puja, Diwali, dance, cooking">
+  <button class="primary full" id="generate">Analyse & generate comment</button>
+  <div class="notice">Prototype note: this browser-only demo does not fetch or watch Facebook videos by itself. A production AI connection needs authorised video/audio input or a user-provided transcript/description.</div>
+ </div>
+</section>
+
+<section id="settings" class="view hidden">
+ <div class="panel">
+  <h2>Your AI's personality</h2>
+  <p class="muted small">These preferences are saved on this device.</p>
+  <label>Personality</label><select id="tone"><option>Warm, friendly, respectful and mature</option><option>Professional but approachable</option><option>Playful and friendly</option></select>
+  <label>Default language</label><select id="language"><option>English first; occasional natural Hinglish</option><option>English</option><option>Hinglish</option><option>Hindi</option><option>Choose naturally based on the Reel</option></select>
+  <label>Comment length</label><select id="length"><option>Medium</option><option>Short</option><option>Detailed</option></select>
+  <label>Extra instructions</label><textarea id="instructions">Respond to the actual caption and video. Appreciate genuinely good content. If there is a mistake, misinformation or disrespectful behaviour, address it calmly and maturely. Avoid using the creator's name. Never invite anyone to my home. Do not use generic praise or engagement bait.</textarea>
+  <label>India and festival knowledge</label><textarea id="culture">Understand Indian festivals, customs, regional diversity, food, music, clothing, rituals and cultural context. Know major and regional festivals such as Diwali, Holi, Navratri, Durga Puja, Chhath Puja, Karwa Chauth, Eid, Christmas, Pongal, Onam, Baisakhi, Ganesh Chaturthi, Raksha Bandhan, Janmashtami and more. Do not stereotype or assume every region celebrates the same way. If uncertain, ask or avoid unsupported claims.</textarea>
+  <label>Hindi / Hinglish understanding</label><textarea id="hindi">Understand spoken Hindi, written Hindi (Devanagari), Roman Hindi, Hinglish, common Indian expressions and code-switching. If audio is provided, transcribe/understand it before commenting. Use English by default, with occasional natural Hinglish where it fits. Do not overuse Hindi.</textarea>
+  <button class="primary full" id="saveSettings">Save AI preferences</button>
+ </div>
+</section>
+<footer>Creator Support AI · Prototype · Your approval is required before every comment.</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let creators=JSON.parse(localStorage.getItem('csai_creators')||'[]');
+let posts=JSON.parse(localStorage.getItem('csai_posts')||'[]');
+function persist(){localStorage.setItem('csai_creators',JSON.stringify(creators));localStorage.setItem('csai_posts',JSON.stringify(posts));render()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(x=>x.classList.toggle('hidden',x.id!==b.dataset.tab));if(b.dataset.tab==='addpost')fillCreatorSelect()});
+$('addCreator').onclick=()=>{let name=$('creatorName').value.trim(),url=$('creatorUrl').value.trim();if(!name||!/^https?:\/\//i.test(url)){alert('Enter a creator label and a valid Facebook URL.');return}creators.push({id:Date.now(),name,url,type:$('creatorType').value});$('creatorName').value='';$('creatorUrl').value='';persist();alert('Creator saved on this device.')};
+function fillCreatorSelect(){$('postCreator').innerHTML=creators.map(c=>`<option value="${c.id}">${esc(c.name)} · ${esc(c.type)}</option>`).join('')||'<option value="">Add a creator first</option>'}
+$('generate').onclick=()=>{
+ const creator=creators.find(c=>String(c.id)===$('postCreator').value);
+ const url=$('postUrl').value.trim(),caption=$('postCaption').value.trim(),visual=$('postVisual').value.trim(),topic=$('postTopic').value.trim();
+ if(!creator){alert('Please add/select a creator first.');return}
+ if(!/^https?:\/\//i.test(url)){alert('Paste a valid Facebook post URL.');return}
+ if(!caption&&!visual&&!topic){alert('Add a caption, transcript, video description or topic so the comment can be relevant.');return}
+ let comment=makeComment(caption,visual,topic);
+ posts.unshift({id:Date.now(),creatorId:creator.id,url,caption,visual,topic,comment,status:'pending',created:new Date().toISOString()});
+ $('postUrl').value='';$('postCaption').value='';$('postVisual').value='';$('postTopic').value='';persist();
+ document.querySelector('[data-tab="dashboard"]').click();
+};
+function makeComment(c,v,t){
+ const text=(c+' '+v+' '+t).toLowerCase();
+ if(/chhath/.test(text)) return "The devotion and care behind Chhath Puja are so meaningful. Loved how you've captured the spirit of the celebration. 🙏✨";
+ if(/diwali|deepavali/.test(text)) return "Such a lovely glimpse of the Diwali celebrations! The lights and festive feeling come through beautifully. 🪔✨";
+ if(/holi/.test(text)) return "The colours and joyful energy of Holi come through so nicely here. A really cheerful celebration! 🌈❤️";
+ if(/navratri|garba|dandiya/.test(text)) return "The Navratri energy is wonderful! The traditional music and festive presentation make this feel so lively. 💃✨";
+ if(/karwa|karva/.test(text)) return "A beautiful Karwa Chauth moment. The details and emotion you've captured make the post feel special. 🌙❤️";
+ if(/eid|ramzan|ramadan/.test(text)) return "Such a warm glimpse of the celebration. Wishing everyone observing it peace, happiness and togetherness. 🌙✨";
+ if(/pongal|onam|baisakhi/.test(text)) return "Loved this glimpse of the tradition and festive spirit. It's lovely seeing regional celebrations shared with such care. 🌾✨";
+ if(/wrong|misinformation|fake|false|not true/.test(text)) return "I appreciate you sharing your perspective. One detail may need a second look, though; it could be worth checking a reliable source before presenting it as fact. 🙂";
+ if(/beautiful|amazing|great|happy|proud|achievement|success/.test(text)) return "There's a genuinely positive feeling in what you've shared. The thought and effort behind it really come through. Keep it up! ❤️";
+ return "I like the thought behind what you've shared. The way you've presented this gives the post a personal touch, and it was nice to see. 😊";
+}
+function render(){
+ $('creatorCount').textContent=creators.length;$('postCount').textContent=posts.filter(p=>p.status==='pending').length;
+ $('creatorList').className=creators.length?'':'empty';
+ $('creatorList').innerHTML=creators.length?creators.map(c=>`<div class="creator"><div class="row between"><b>${esc(c.name)}</b><span class="tag">${esc(c.type)}</span></div><div class="muted small" style="word-break:break-all;margin-top:5px">${esc(c.url)}</div><button class="ghost" style="margin-top:9px" onclick="removeCreator(${c.id})">Remove</button></div>`).join():'No creators added yet.';
+ fillCreatorSelect();
+ $('queue').innerHTML=posts.length?posts.map(p=>{let c=creators.find(x=>x.id===p.creatorId);return `<div class="post"><div class="row between"><b>${esc(c?.name||'Creator')}</b><span class="tag">${p.status==='pending'?'Awaiting approval':'Sent / opened'}</span></div><div class="muted small" style="margin-top:5px">${esc(p.topic||'New post')} · ${new Date(p.created).toLocaleString()}</div><div class="comment" id="comment-${p.id}">${esc(p.comment)}</div><label>Edit suggested comment</label><textarea id="edit-${p.id}">${esc(p.comment)}</textarea><div class="actions"><button class="primary" onclick="sendComment(${p.id})">↗ SEND COMMENT</button><button class="secondary" onclick="saveEdit(${p.id})">Save edit</button><button class="ghost" onclick="removePost(${p.id})">Dismiss</button></div><div class="muted small" style="margin-top:8px">Send copies the comment and opens the original Facebook link. Paste into Facebook's comment box and tap Post.</div></div>`}).join(''):'<div class="empty">No posts in your queue yet.<br>Add a creator and paste a Reel link to try the workflow.</div>';
+}
+window.removeCreator=id=>{if(!confirm('Remove this creator?'))return;creators=creators.filter(c=>c.id!==id);persist()};
+window.removePost=id=>{posts=posts.filter(p=>p.id!==id);persist()};
+window.saveEdit=id=>{let p=posts.find(x=>x.id===id);p.comment=$('edit-'+id).value.trim();persist()};
+window.sendComment=async id=>{
+ let p=posts.find(x=>x.id===id);if(!p)return;
+ p.comment=$('edit-'+id).value.trim()||p.comment;
+ try{await navigator.clipboard.writeText(p.comment)}catch(e){alert('Clipboard access was blocked. Select and copy the comment manually.');return}
+ persist();
+ // Open the exact post after copying. Browser popup policy can block this if clipboard permission is denied.
+ window.open(p.url,'_blank','noopener');
+ alert('Comment copied! Facebook is opening. Paste the comment in the Reel/post comment box and tap Post.');
+};
+$('saveSettings').onclick=()=>{['tone','language','length','instructions','culture','hindi'].forEach(k=>localStorage.setItem('csai_'+k,$(k).value));alert('AI preferences saved on this device.')};
+['tone','language','length','instructions','culture','hindi'].forEach(k=>{let v=localStorage.getItem('csai_'+k);if(v!==null)$(k).value=v});
+render();
+</script>
+</body></html>
