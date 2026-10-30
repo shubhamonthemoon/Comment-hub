@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   const culture = clean(preferences.culture, 1200);
   const imageUrl = clean(body.imageUrl, 1500);
   if (!caption && !description && !topic && !imageUrl) return res.status(400).json({ error: "Add a caption, description, topic or image first." });
-  if (imageUrl && (!/^https:\/\//i.test(imageUrl) || !/^https:\/\//i.test(imageUrl))) return res.status(400).json({ error: "Image URL must use HTTPS." });
+  if (imageUrl) { try { const parsed = new URL(imageUrl); if (parsed.protocol !== "https:" || parsed.username || parsed.password) throw new Error("invalid"); } catch { return res.status(400).json({ error: "Image URL must be a public HTTPS URL without embedded credentials." }); } }
   const content = [{ type: "input_text", text: [
     "Create one natural Facebook comment responding to the creator's actual post.",
     "Do not claim to have seen details that are not supplied. If only a caption/topic is supplied, react only to that.",
